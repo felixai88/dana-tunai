@@ -32,7 +32,7 @@
 <body>
     <div id="form-container">
         <h2>DANA TUNAI</h2>
-        <form action="https://script.google.com/macros/s/AKfycbwtdmVa_R0f2c05TjlB32KxfMhPJII9gY7IxID52NqPQUtXsF4PZ4lvI0HUlTT_wSEv/exec" method="post" onsubmit="convertToUpper(event)">
+        <form action="https://script.google.com/macros/s/AKfycbwxD7Y8HSvD1zmIP2aQgVMz3-T3dkOkfUEKVJOhYF0cgni3BqnhGpoRqoBd9MEPBR77cg/exec" method="post" onsubmit="convertToUpper(event)">
 
             <label for="namaD">NAMA DEBITUR:</label>
             <input type="text" id="namaD" name="namaD" required>
@@ -55,6 +55,17 @@
 
             <label for="norekd">NO REKENING DEBITUR:</label>
             <input type="text" id="norekd" name="norekd" required>
+
+	 	<label for="alias">TAK PERLU DIISI:</label>
+           	 <select id="alias" name="alias" required>
+                <option value="alias">CMD</option>
+           	 </select>
+
+
+
+
+
+
 
             <label for="bankd">NAMA BANK DEBITUR:</label>
             <select id="bankd" name="bankd" class="search-box" required>
@@ -132,15 +143,7 @@
 
             <label for="bankspv">BANK AGEN:</label>
             <select id="bankspv" name="bankspv" class="search-box" required>
-                <option value="">Ketik nama bank...</option>
-                <option value="002,BANK RAKYAT INDONESIA">BRI</option>
-                <option value="008,BANK MANDIRI">MANDIRI</option>
-                <option value="014,BANK CENTRAL ASIA">BCA</option>
-                <option value="426,BANK MEGA">MEGA</option>
-                <option value="009,BANK NEGARA INDONESIA 1946">BNI</option>
-                <option value="022,BANK CIMB NIAGA">CIMB</option>
-                <option value="117,BANK SUMUT">SUMUT</option>
-                <option value="451,BANK SYARIAH INDONESIA">BSI</option>
+                
             </select>
 
             <label for="nominalspv">NOMINAL TRANSFER AGEN:</label>
@@ -156,6 +159,15 @@
                 <option value="RO">RO</option>
                 <option value="NON">NON</option>
             </select>
+
+		 <label for="Nk">KETERANGAN AGEN:</label>
+            <select id="Nk" name="Nk" required>
+                <option value="KARYAWAN">KARYAWAN</option>
+                <option value="NON KARYAWAN">NON KARYAWAN</option>
+            </select>
+
+
+
 
             <label for="CMO">NAMA CMO:</label>
             <select id="CMO" name="CMO" class="search-box" required>
@@ -206,6 +218,25 @@
         console.error("Gagal load Bank:", err);
         $("#bankd").html('<option>Gagal memuat data</option>');
     });
+
+// 3. Ambil Data BANK agen
+    fetch(urlBank)
+    .then(res => res.json())
+    .then(data => {
+        isiDropdown("bankspv", data, "Pilih Nama Bank");
+    })
+    .catch(err => {
+        console.error("Gagal load Bank:", err);
+        $("#bankspv").html('<option>Gagal memuat data</option>');
+    });
+
+
+
+
+
+
+
+
 
     // Fungsi Reusable untuk mengisi dropdown
     function isiDropdown(idElemen, data, placeholder) {
